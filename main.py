@@ -7,9 +7,10 @@ console = Console()
 
 
 def menu():
-    while True:
-        console.clear()
-
+    keepRunning = True
+    while keepRunning:
+        # console.clear()
+    
         table = Table(title="🏦 Bank System Menu", title_style="bold magenta")
 
         table.add_column("Option", style="cyan", justify="center")
@@ -42,6 +43,7 @@ def menu():
         elif choice == '7':
             console.print("\n👋 Exiting... Thank you for using the Bank System!", style="bold green")
             break
+        keepRunning = input('Want to continue? (y/n) ') == 'y'
 
 
 if __name__ == "__main__":

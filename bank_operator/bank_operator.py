@@ -18,13 +18,17 @@ def list_users():
 
 def create_account():
     list_users()
+    amount = 0
+    if len(users) < 1 :
+        print('No Users Were Found')
+        return
     idx = int(input("Select user number: ")) - 1
     print("Account Type:")
     print("1. Savings Account")
     print("2. Students Account")
     print("3. Current Account")
     account_choice = int(input("Enter your choice (1, 2, 3): "))
-    amount = float(input("Enter initial deposit: "))
+    amount += float(input("Enter initial deposit: "))
 
     if account_choice == 1:
         account = SavingsAccount(amount)
@@ -41,13 +45,16 @@ def create_account():
 
 def deposit_money():
     list_users()
+    if int(input("Select user: ")) - 1 > len(users):
+        print('no such user')
+        return 
     idx = int(input("Select user: ")) - 1
     user = users[idx]
     for i, acc in enumerate(user.accounts):
         print(f"{i+1}. Balance: Rs. {acc.get_balance()}")
     acc_idx = int(input("Select account: ")) - 1
     amount = float(input("Enter amount to deposit: "))  # Fixed bug
-    user.accounts[acc_idx].deposit(amount)
+    user.accounts2[acc_idx].deposit(amount)
 
 def withdraw_money():
     list_users()
