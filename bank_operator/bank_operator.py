@@ -9,10 +9,14 @@ def create_user():
     user = User(name, email)
     if not user.is_valid_email(email):
         print("Email is invalid!")
+        return
     users.append(user)
     print(f"User {name} created.\n")
 
 def list_users():
+    if len(users) < 1 :
+        print('List Empty')
+        return
     for i, user in enumerate(users):
         print(f"{i+1}. {user}")
 
@@ -20,7 +24,7 @@ def create_account():
     list_users()
     amount = 0
     if len(users) < 1 :
-        print('No Users Were Found')
+        print("No users available. Please create a user first.")
         return
     idx = int(input("Select user number: ")) - 1
     print("Account Type:")
@@ -28,8 +32,7 @@ def create_account():
     print("2. Students Account")
     print("3. Current Account")
     account_choice = int(input("Enter your choice (1, 2, 3): "))
-    amount += float(input("Enter initial deposit: "))
-
+    
     if account_choice == 1:
         account = SavingsAccount(amount)
     elif account_choice == 2:
@@ -37,18 +40,22 @@ def create_account():
     elif account_choice == 3:
         account = CurrentAccount(amount)
     else:
-        print("Invalid choice!")
-        account = BankAccount(amount)
+        print("Invalid account type!")
+        return
+
+    amount += float(input("Enter initial deposit: "))
 
     users[idx].add_account(account)
     print(f"{account.get_account_type()} added!\n")
 
 def deposit_money():
     list_users()
-    if int(input("Select user: ")) - 1 > len(users):
-        print('no such user')
-        return 
+    if len(users) == 0:
+        return
     idx = int(input("Select user: ")) - 1
+    if idx - 1 > len(users):
+        print("Invalid user selection.\n")
+        return
     user = users[idx]
     for i, acc in enumerate(user.accounts):
         print(f"{i+1}. Balance: Rs. {acc.get_balance()}")
@@ -58,7 +65,12 @@ def deposit_money():
 
 def withdraw_money():
     list_users()
+    if len(users) == 0:
+        return
     idx = int(input("Select user: ")) - 1
+    if idx - 1 > len(users):
+        print("Invalid user selection.\n")
+        return
     user = users[idx]
     for i, acc in enumerate(user.accounts):
         print(f"{i+1}. Balance: Rs. {acc.get_balance()}")
@@ -72,6 +84,9 @@ def withdraw_money():
 
 def view_transactions():
     list_users()
+    if len(users) < 1 :
+        print('No Users Were Found')
+        return
     idx = int(input("Select user: ")) - 1
     user = users[idx]
     for i, acc in enumerate(user.accounts):

@@ -9,7 +9,7 @@ console = Console()
 def menu():
     keepRunning = True
     while keepRunning:
-        # console.clear()
+        console.clear()
     
         table = Table(title="🏦 Bank System Menu", title_style="bold magenta")
 

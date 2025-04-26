@@ -19,7 +19,8 @@ class User:
         return "Account"
 
     def is_valid_email(self,email):
-        return None
+        check = email.__contains__('@gmail.com')
+        return check
 
 
     def __str__(self):
